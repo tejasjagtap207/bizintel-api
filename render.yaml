@@ -1,0 +1,27 @@
+# render.yaml — Auto-deploy configuration for Render.com
+# Just push to GitHub and Render auto-deploys!
+
+services:
+  - type: web
+    name: bizintel-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt && python -c "from database import engine, metadata; metadata.create_all(engine)"
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bizintel-db
+          property: connectionString
+      - key: OPENAI_API_KEY
+        sync: false  # You'll set this manually in Render dashboard
+      - key: PORT
+        value: 8000
+      - key: LLM_MODEL
+        value: gpt-4o-mini
+      - key: LLM_MAX_TOKENS
+        value: 2000
+
+databases:
+  - name: bizintel-db
+    databaseName: bizintel
+    plan: free  # Render free PostgreSQL!
