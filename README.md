@@ -1,4 +1,4 @@
-🔍 BizIntel API — Business Intelligence on ANY Website
+🔍 BizIntel API —   Business Intelligence on ANY Website
 Get complete intelligence on any business website in seconds.
 
 What It Does
